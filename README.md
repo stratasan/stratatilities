@@ -1,21 +1,10 @@
-==============
-Stratatilities
-==============
+
+# Stratatilities
 
 
-.. image:: https://img.shields.io/pypi/v/stratatilities.svg
-        :target: https://pypi.python.org/pypi/stratatilities
+![](https://img.shields.io/travis/stratasan/stratatilities.svg)
 
-.. image:: https://img.shields.io/travis/stratabuild/stratatilities.svg
-        :target: https://travis-ci.org/stratabuild/stratatilities
-
-.. image:: https://readthedocs.org/projects/stratatilities/badge/?version=latest
-        :target: https://stratatilities.readthedocs.io/en/latest/?badge=latest
-        :alt: Documentation Status
-
-.. image:: https://pyup.io/repos/github/stratabuild/stratatilities/shield.svg
-     :target: https://pyup.io/repos/github/stratabuild/stratatilities/
-     :alt: Updates
+![](https://pyup.io/repos/github/stratasan/stratatilities/shield.svg)
 
 
 Various utilities for use across Stratasan services
@@ -25,16 +14,16 @@ Various utilities for use across Stratasan services
 * Documentation: https://stratatilities.readthedocs.io.
 
 
-Features
---------
+## Features
+
 
 * TODO
 
-Credits
----------
+## Credits
 
-This package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypackage`_ project template.
 
-.. _Cookiecutter: https://github.com/audreyr/cookiecutter
-.. _`audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage
+This package was created with [Cookiecutter][1] and the [audreyr/cookiecutter-pypackage][2] project template.
+
+[1]: https://github.com/audreyr/cookiecutter
+[2]: https://github.com/audreyr/cookiecutter-pypackage
 
