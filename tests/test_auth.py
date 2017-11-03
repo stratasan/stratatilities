@@ -1,13 +1,9 @@
 try:
-    import mock
+    from mock import Mock, patch
 except ImportError:
-    import unittest
-    mock = unittest.mock
+    from unittest.mock import Mock, patch
 
 from stratatilities.auth import read_vault_secret, get_vault_client
-
-patch = mock.patch
-Mock = mock.Mock
 
 
 def test_get_vault_client():
