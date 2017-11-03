@@ -13,6 +13,9 @@ with open('HISTORY.md') as history_file:
 
 requirements = [
     'Click>=6.0',
+    'boto3',
+    'requests',
+    'hvac',
     # TODO: put package requirements here
 ]
 
@@ -22,6 +25,7 @@ setup_requirements = [
 
 test_requirements = [
     'pytest',
+    'mock',
 ]
 
 setup(
