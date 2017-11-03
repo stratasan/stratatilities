@@ -65,6 +65,7 @@ coverage: ## check code coverage quickly with the default Python
 
 deploy-docs: ## generate Sphinx HTML documentation, including API docs
 	mkdocs gh-deploy
+	rm -rf site/
 
 release: clean ## package and upload a release
 	python setup.py sdist upload
