@@ -2,23 +2,28 @@
     "docs": [
         {
             "location": "/",
-            "text": "Welcome to MkDocs\n\n\nFor full documentation visit \nmkdocs.org\n.\n\n\nCommands\n\n\n\n\nmkdocs new [dir-name]\n - Create a new project.\n\n\nmkdocs serve\n - Start the live-reloading docs server.\n\n\nmkdocs build\n - Build the documentation site.\n\n\nmkdocs help\n - Print this help message.\n\n\n\n\nProject layout\n\n\nmkdocs.yml    # The configuration file.\ndocs/\n    index.md  # The documentation homepage.\n    ...       # Other markdown pages, images and other files.",
-            "title": "Welcome to MkDocs"
+            "text": "Stratatilities Documentation\n\n\nThis package provides shared functionality for use across various\nStratasan services. While this is provided as open source, we are\nnot accepting Pull Requests from outside contributors :)\n\n\n\n\nauthorization\n will make your authorization\nlife easier.\n\n\n\n\nAbout\n\n\nWe test this project on \nTravis\n using a\ncombination of pytest and tox.\n\n\nDocs are built with \nMkdocs\n and deployed to\nGitHub Pages with \n$ make deploy-docs\n. Documentation should come\nalongside code in a PR.",
+            "title": "Index"
         },
         {
-            "location": "/#welcome-to-mkdocs",
-            "text": "For full documentation visit  mkdocs.org .",
-            "title": "Welcome to MkDocs"
+            "location": "/#stratatilities-documentation",
+            "text": "This package provides shared functionality for use across various\nStratasan services. While this is provided as open source, we are\nnot accepting Pull Requests from outside contributors :)   authorization  will make your authorization\nlife easier.",
+            "title": "Stratatilities Documentation"
         },
         {
-            "location": "/#commands",
-            "text": "mkdocs new [dir-name]  - Create a new project.  mkdocs serve  - Start the live-reloading docs server.  mkdocs build  - Build the documentation site.  mkdocs help  - Print this help message.",
-            "title": "Commands"
+            "location": "/#about",
+            "text": "We test this project on  Travis  using a\ncombination of pytest and tox.  Docs are built with  Mkdocs  and deployed to\nGitHub Pages with  $ make deploy-docs . Documentation should come\nalongside code in a PR.",
+            "title": "About"
         },
         {
-            "location": "/#project-layout",
-            "text": "mkdocs.yml    # The configuration file.\ndocs/\n    index.md  # The documentation homepage.\n    ...       # Other markdown pages, images and other files.",
-            "title": "Project layout"
+            "location": "/authorization/",
+            "text": "Authorization With Vault\n\n\nSecrets are a thing we all have to deal with. Instead of maintaining all of our keys in environment variables scattered across all the things, we use\n\nVault\n to store secrets.\n\n\nWhile it is possible to access Vault via AWS IAM, it's not fun so we've\nwritten a few functions to make it easier. However, you must create a role\nin Vault for the IAM Role you'll be using in your service. Assuming a role\nname \nstratasan_vault_role\n, you should run the following commands:\n\n\n$ export VAULT_ADDR=https://path.to.our.vault.stratsan.com:port\n$ vault write \\\n    auth/aws/role/stratasan_vault_role \\\n    roles=default,slack \\\n    max_ttl=60 \\\n    bound_iam_principal_arn=arn:aws:iam::awsid:role/stratasan_vault_role \\\n    resolve_aws_unique_ids=false\n\n\n\n\nIf you require different roles in Vault (roles being a group of policies),\nchange that appropriately in the \nroles\n argument.\n\n\nWith this done, the following functions will be useful:\n\n\nfrom os import getenv\nfrom stratatilities.auth import get_vault_client, read_vault_secret\n\nvault_addr = getenv.get('VAULT_ADDR', 'https://whatever.vault.com:port')  # This is not a secret\n\nvault_client = get_vault_client(vault_addr)\nsekret = read_vault_secrect(vault_client, 'path/to/sekret')\n\n# go forth and do your thing",
+            "title": "Authorization"
+        },
+        {
+            "location": "/authorization/#authorization-with-vault",
+            "text": "Secrets are a thing we all have to deal with. Instead of maintaining all of our keys in environment variables scattered across all the things, we use Vault  to store secrets.  While it is possible to access Vault via AWS IAM, it's not fun so we've\nwritten a few functions to make it easier. However, you must create a role\nin Vault for the IAM Role you'll be using in your service. Assuming a role\nname  stratasan_vault_role , you should run the following commands:  $ export VAULT_ADDR=https://path.to.our.vault.stratsan.com:port\n$ vault write \\\n    auth/aws/role/stratasan_vault_role \\\n    roles=default,slack \\\n    max_ttl=60 \\\n    bound_iam_principal_arn=arn:aws:iam::awsid:role/stratasan_vault_role \\\n    resolve_aws_unique_ids=false  If you require different roles in Vault (roles being a group of policies),\nchange that appropriately in the  roles  argument.  With this done, the following functions will be useful:  from os import getenv\nfrom stratatilities.auth import get_vault_client, read_vault_secret\n\nvault_addr = getenv.get('VAULT_ADDR', 'https://whatever.vault.com:port')  # This is not a secret\n\nvault_client = get_vault_client(vault_addr)\nsekret = read_vault_secrect(vault_client, 'path/to/sekret')\n\n# go forth and do your thing",
+            "title": "Authorization With Vault"
         }
     ]
 }
