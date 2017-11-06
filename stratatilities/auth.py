@@ -2,7 +2,10 @@ import base64
 import json
 import logging
 import os
-from urllib.parse import urlparse
+try:
+    from urllib.parse import urlparse
+except ImportError:
+    from urlparse import urlparse
 
 import boto3
 import hvac
