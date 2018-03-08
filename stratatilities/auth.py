@@ -82,5 +82,10 @@ def get_vault_client(vault_addr=os.environ.get('VAULT_ADDR')):
     return hvac.Client(url=vault_addr, verify=False, token=vault_token)
 
 
-def read_vault_secret(vault_client, path_to_secret):
-    return vault_client.read(path_to_secret)['data']['value']
+def read_vault_secret(vault_client, path_to_secret,vault_value_key='value'):
+    vault_value = None
+    try:
+        vault_value = vault_client.read(path_to_secret)['data'][vault_value_key]
+    except TypeError:
+        pass
+    return vault_value
