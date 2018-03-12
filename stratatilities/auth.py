@@ -57,6 +57,7 @@ def request_vault_token(vault_addr):
     client = session.client('sts')
     endpoint = client._endpoint
     role_name = client.get_caller_identity()['Arn'].split('/')[1]
+    logger.debug('Requesting vault token with IAM role name "%s"', role_name)
 
     operation_model = client._service_model.operation_model('GetCallerIdentity')
     request_dict = client._convert_to_request_dict({}, operation_model)
@@ -64,6 +65,8 @@ def request_vault_token(vault_addr):
     awsIamServerId = urlparse(vault_addr).hostname
     request_dict['headers']['X-Vault-awsiam-Server-Id'] = awsIamServerId
 
+    logger.debug('Creating request with request_dict "%s" and operational_model "%s"',
+        request_dict, operational_model)
     request = endpoint.create_request(request_dict, operation_model)
     return get_token(
         vault_addr,
