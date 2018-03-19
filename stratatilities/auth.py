@@ -85,7 +85,7 @@ def get_vault_client(vault_addr=os.environ.get('VAULT_ADDR')):
     return hvac.Client(url=vault_addr, verify=False, token=vault_token)
 
 
-def get_token(vault_addr=os.environ.get('VAULT_ADDR')):
+def return_token(vault_addr=os.environ.get('VAULT_ADDR')):
     vault_token = os.environ.get('VAULT_TOKEN', None)
     if not vault_token:
         vault_token = request_vault_token(vault_addr)
