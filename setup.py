@@ -15,8 +15,12 @@ requirements = [
     'Click>=6.0',
     'boto3',
     'requests',
-    'hvac',
+    'hvac==0.6.0',
     # TODO: put package requirements here
+]
+
+dependency_links=[
+    "git+ssh://git@github.com/stratasan/hvac.git@0.6.0#egg=hvac-0.6.0"
 ]
 
 setup_requirements = [
@@ -44,6 +48,7 @@ setup(
     },
     include_package_data=True,
     install_requires=requirements,
+    dependency_links=dependency_links,
     license="MIT license",
     zip_safe=False,
     keywords='stratatilities',

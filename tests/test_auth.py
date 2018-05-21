@@ -1,3 +1,4 @@
+import os
 try:
     from mock import Mock, patch
 except ImportError:
@@ -6,21 +7,33 @@ except ImportError:
 from stratatilities.auth import read_vault_secret, get_vault_client
 
 
-def test_get_vault_client():
+@patch.dict(os.environ,{'VAULT_TOKEN':'token'})
+def test_get_vault_client_env_variable():
     url = 'http://vault.example.com:8200'
     path = 'stratatilities.auth.'
-    with patch(path + 'request_vault_token') as request_vault:
-        with patch(path + 'hvac') as hvac:
-            request_vault.return_value = 'token'
+    with patch(path + 'hvac') as hvac:
 
+        client = get_vault_client(url)
+        assert client == hvac.Client.return_value
+        hvac.Client.assert_called_with(
+            url=url,
+            verify=False,
+            token='token'
+        )
+
+def test_get_vault_client_iam():
+    url = 'http://vault.example.com:8200'
+    path = 'stratatilities.auth.'
+    with patch(path + 'boto3.Session.get_credentials') as creds:
+        with patch(path + 'hvac') as hvac:
             client = get_vault_client(url)
             assert client == hvac.Client.return_value
             hvac.Client.assert_called_with(
                 url=url,
                 verify=False,
-                token=request_vault.return_value
             )
-
+            creds.assert_called()
+            client.auth_aws_iam.assert_called()
 
 def test_read_vault_client():
     client = Mock()
