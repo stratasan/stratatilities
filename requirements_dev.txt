@@ -7,6 +7,7 @@ tox==2.3.1
 coverage==4.1
 mkdocs==0.17.1
 mock
+https://github.com/stratasan/hvac/archive/aws.zip
 
 pytest==2.9.2
 pytest-runner==2.11.1
