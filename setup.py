@@ -20,7 +20,7 @@ requirements = [
 ]
 
 dependency_links=[
-    "git+ssh://git@github.com/stratasan/hvac.git@0.6.0#egg=hvac-0.6.0"
+    "git+https://git@github.com/stratasan/hvac.git@0.6.0#egg=hvac-0.6.0"
 ]
 
 setup_requirements = [
