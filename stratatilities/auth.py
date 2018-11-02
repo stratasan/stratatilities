@@ -94,10 +94,20 @@ def return_token(vault_addr=os.environ.get('VAULT_ADDR')):
     return vault_token
 
 
-def read_vault_secret(vault_client, path_to_secret,vault_value_key='value'):
+def read_vault_secret(vault_client, path_to_secret, vault_value_key='value'):
+    """ Read a vault secret given a {vault_client} and {path_to_secret}
+
+    If the secret is "complex", in that it's more than just key/value,
+    then passing `vault_value_key=None` will return the blob from vault
+    and you can do w/ it as you wish, otherwise vault_value_key is used
+    to access the object returned in response['data']
+    """
     vault_value = None
     try:
-        vault_value = vault_client.read(path_to_secret)['data'][vault_value_key]
+        if vault_value_key is None:
+            vault_value = vault_client.read(path_to_secret)['data']
+        else:
+            vault_value = vault_client.read(path_to_secret)['data'][vault_value_key]
     except TypeError:
         pass
     return vault_value
