@@ -37,3 +37,15 @@ def test_read_vault_client():
 
     client.read.assert_called_with(path)
 
+    # If we're expecting a complex value in 'data'
+    complex_value = {
+        'complex': 'values',
+        'another': 'key'
+    }
+    client.read.return_value = {
+        'data': complex_value
+    }
+    # then passing vault_value_key=None will make the funtion
+    # return 'data' and not do a further key access
+    answer = read_vault_secret(client, path, vault_value_key=None)
+    assert answer == complex_value
