@@ -54,7 +54,7 @@ def test_read_vault_secret():
 
 
 def test_get_vault_client_via_ldap():
-    with patch('stratilities.auth.hvac') as hvac,\
+    with patch('stratatilities.auth.hvac') as hvac,\
          patch('stratatilities.auth.getpass') as getpass:
         username, vault_addr = 'username', 'https://vault.example.com'
 
