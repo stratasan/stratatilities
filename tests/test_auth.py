@@ -72,17 +72,3 @@ def test_get_vault_client_via_ldap():
             password=getpass.return_value,
             mount_point='ldap'
         )
-        client.reset_mock()
-
-        client = get_vault_client_via_ldap(
-            username,
-            password='pass',
-            mount_point='prod ldap',
-            vault_addr=vault_addr,
-        )
-
-        client.auth.ldap.login.assert_called_with(
-            username=username,
-            password='pass',
-            mount_point='prod ldap',
-        )

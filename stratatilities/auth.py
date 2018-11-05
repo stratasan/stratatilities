@@ -88,11 +88,12 @@ def get_vault_client(vault_addr=os.environ.get('VAULT_ADDR')):
 
 
 def get_vault_client_via_ldap(
-        username, password=None, mount_point='ldap',
+        username, mount_point='ldap',
         vault_addr=os.environ.get('VAULT_ADDR')):
     """ Return an authenticated vault client via LDAP.
 
-    If password is not provided, getpass is used to get from user.
+    Password will be acquired via `getpass.getpass`. Services should
+    use `get_vault_client` with IAM privileges.
 
     InvalidRequest is raised from an incorrect password being entered
     """
@@ -100,7 +101,7 @@ def get_vault_client_via_ldap(
     # with an incorrect password, an InvalidRequest is raised
     client.auth.ldap.login(
         username=username,
-        password=password or getpass('LDAP Password:'),
+        password=getpass('LDAP Password:'),
         mount_point=mount_point
     )
     assert client.is_authenticated(), 'Client is not authenticated!'
