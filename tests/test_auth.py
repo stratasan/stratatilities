@@ -1,7 +1,4 @@
-try:
-    from mock import Mock, patch
-except ImportError:
-    from unittest.mock import Mock, patch
+from unittest.mock import Mock, patch
 
 from stratatilities.auth import read_vault_secret, get_vault_client
 
