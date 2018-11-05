@@ -1,4 +1,5 @@
 import base64
+from getpass import getpass
 import json
 import logging
 import os
@@ -84,6 +85,27 @@ def get_vault_client(vault_addr=os.environ.get('VAULT_ADDR')):
         vault_token = request_vault_token(vault_addr)
     logger.debug('vault token: %s', vault_token)
     return hvac.Client(url=vault_addr, verify=False, token=vault_token)
+
+
+def get_vault_client_via_ldap(
+        username, mount_point='ldap',
+        vault_addr=os.environ.get('VAULT_ADDR')):
+    """ Return an authenticated vault client via LDAP.
+
+    Password will be acquired via `getpass.getpass`. Services should
+    use `get_vault_client` with IAM privileges.
+
+    InvalidRequest is raised from an incorrect password being entered
+    """
+    client = hvac.Client(url=vault_addr)
+    # with an incorrect password, an InvalidRequest is raised
+    client.auth.ldap.login(
+        username=username,
+        password=getpass('LDAP Password:'),
+        mount_point=mount_point
+    )
+    assert client.is_authenticated(), 'Client is not authenticated!'
+    return client
 
 
 def return_token(vault_addr=os.environ.get('VAULT_ADDR')):
