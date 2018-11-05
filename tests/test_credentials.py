@@ -4,7 +4,7 @@ from stratatilities.credentials import get_redshift_dsn
 
 
 def test_get_redshift_dsn():
-    path = 'stratilities.credentials.read_vault_secret'
+    path = 'stratatilities.credentials.read_vault_secret'
     with patch(path) as read_vault_secret:
         vault_client = Mock()
         read_vault_secret.return_value = [
