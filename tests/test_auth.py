@@ -1,6 +1,8 @@
 from unittest.mock import Mock, patch
 
-from stratatilities.auth import read_vault_secret, get_vault_client
+from stratatilities.auth import (
+    read_vault_secret, get_vault_client, get_vault_client_via_ldap
+)
 
 
 def test_get_vault_client():
@@ -19,7 +21,7 @@ def test_get_vault_client():
             )
 
 
-def test_read_vault_client():
+def test_read_vault_secret():
     client = Mock()
     path = 'path/to/sekret'
 
@@ -46,3 +48,24 @@ def test_read_vault_client():
     # return 'data' and not do a further key access
     answer = read_vault_secret(client, path, vault_value_key=None)
     assert answer == complex_value
+
+
+def test_get_vault_client_via_ldap():
+    with patch('stratatilities.auth.hvac') as hvac,\
+         patch('stratatilities.auth.getpass') as getpass:
+        username, vault_addr = 'username', 'https://vault.example.com'
+
+        hvac.Client.return_value.is_authenticated.return_value = True
+
+        client = get_vault_client_via_ldap(
+            username,
+            vault_addr=vault_addr
+        )
+        hvac.Client.assert_called_with(url=vault_addr)
+        assert hvac.Client.return_value == client
+        # the password will come from getpass when not supplied in the call
+        client.auth.ldap.login.assert_called_with(
+            username=username,
+            password=getpass.return_value,
+            mount_point='ldap'
+        )
