@@ -7,7 +7,7 @@ def test_get_redshift_dsn():
     path = 'stratatilities.credentials.read_vault_secret'
     with patch(path) as read_vault_secret:
         vault_client = Mock()
-        read_vault_secret.return_value = [
+        read_vault_secret.side_effect = [
             'host',
             'port',
             'dbname',
@@ -19,7 +19,7 @@ def test_get_redshift_dsn():
         assert dsn == 'postgresql://username:password@host:port/dbname?keepalives=1'  # noqa
         calls = [
             call(vault_client, 'secret/staging/shared/DB_REDSHIFT_HOST'),
-            call(vault_client, 'secret/staging/shared/DB_REDSHIFT_POST'),
+            call(vault_client, 'secret/staging/shared/DB_REDSHIFT_PORT'),
             call(vault_client, 'secret/staging/shared/DB_REDSHIFT_NAME'),
             call(
                 vault_client,
