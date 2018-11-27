@@ -66,6 +66,6 @@ def test_get_vault_client_via_ldap():
         # the password will come from getpass when not supplied in the call
         client.auth.ldap.login.assert_called_with(
             username=username,
-            password=getpass.return_value,
+            password=getpass.getpass.return_value,
             mount_point='ldap'
         )
