@@ -1,5 +1,5 @@
 import base64
-from getpass import getpass
+import getpass
 import json
 import logging
 import os
@@ -101,7 +101,7 @@ def get_vault_client_via_ldap(
     # with an incorrect password, an InvalidRequest is raised
     client.auth.ldap.login(
         username=username,
-        password=getpass('LDAP Password:'),
+        password=getpass.getpass('LDAP Password:'),
         mount_point=mount_point
     )
     assert client.is_authenticated(), 'Client is not authenticated!'
