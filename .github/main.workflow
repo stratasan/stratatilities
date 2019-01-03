@@ -1,24 +1,26 @@
 workflow "CI" {
     on = "push"
     resolves = [
-        "lint"
+        "lint",
+        "test-35",
+        "test-36",
+        "test-37"
     ]
-}
-
-action "test-27" {
-    uses = "./actions/test-27"
 }
 
 action "test-35" {
     uses = "./actions/test-35"
+    args = "cd ${GITHUB_WORKSPACE}; make test"
 }
 
 action "test-36" {
     uses = "./actions/test-36"
+    args = "cd ${GITHUB_WORKSPACE}; make test"
 }
 
 action "test-37" {
     uses = "./actions/test-37"
+    args = "cd ${GITHUB_WORKSPACE}; make test"
 }
 
 action "lint" {
