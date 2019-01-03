@@ -9,8 +9,9 @@ workflow "CI" {
 }
 
 action "test-35" {
-    uses = "./actions/test-35"
-    args = "cd ${GITHUB_WORKSPACE}; make install test"
+    uses = "docker://python:3.5-alpine"
+    runs ="/bin/sh -c"
+    args = "cd ${GITHUB_WORKSPACE}; apk add make; make install test"
 }
 
 action "test-36" {
