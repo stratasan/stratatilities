@@ -10,11 +10,4 @@ apk add make
 echo
 echo
 
-echo Installing black...
-echo
-pip install black
-echo
-echo
-
-echo Make "$@"
-make "$@"
+sh -c "$@"
