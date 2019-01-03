@@ -4,10 +4,17 @@
 
 set -eu
 
-echo hi
-
-echo adding make...
+echo Adding make...
+echo
 apk add make
+echo
+echo
 
-echo make "$@"
+echo Installing black...
+echo
+pip install black
+echo
+echo
+
+echo Make "$@"
 make "$@"
