@@ -1,12 +1,6 @@
 
 # Stratatilities
 
-
-![](https://img.shields.io/travis/stratasan/stratatilities.svg)
-
-![](https://pyup.io/repos/github/stratasan/stratatilities/shield.svg)
-
-
 Various utilities for use across Stratasan services
 
 
@@ -14,10 +8,15 @@ Various utilities for use across Stratasan services
 * Documentation: https://stratatilities.readthedocs.io.
 
 
-## Features
+## Developing
 
+This project uses [black](https://github.com/ambv/black) to maintain proper styling and this is checked in CI. Please setup your editor to format with black automatically.
 
-* TODO
+Their [docs on editor integration](https://github.com/ambv/black#editor-integration) are likely the best way to get up and running with black.
+
+## CI
+
+Continuous integration runs on GitHub Actions. See the `main.workflow` file for how actions are organized.
 
 ## Credits
 
