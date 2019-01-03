@@ -15,7 +15,7 @@ action "lint" {
 action "test-35" {
     needs = ["lint"]
     uses = "docker://python:3.5-alpine"
-    runs = ["/bin/sh", "-c"]
+    runs = ["/bin/sh", "-c", "$*"]
     args = "apk add make; make install test"
 }
 
