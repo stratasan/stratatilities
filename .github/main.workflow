@@ -25,4 +25,5 @@ action "test-37" {
 
 action "lint" {
     uses = "./actions/lint"
+    args = "cd ${GITHUB_WORKSPACE}; make lint"
 }
