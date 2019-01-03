@@ -1,13 +1,14 @@
 #!/bin/sh
-
+set -eu
 # Script to exec commands in GitHub Actions
 
-set -eu
-
+date
 echo Adding make...
 echo
 apk add make
 echo
 echo
 
-sh -c "$@"
+date
+echo Exeucting "$*"
+sh -c "$*"
