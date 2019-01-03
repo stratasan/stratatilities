@@ -10,17 +10,17 @@ workflow "CI" {
 
 action "test-35" {
     uses = "./actions/test-35"
-    args = "cd ${GITHUB_WORKSPACE}; make test"
+    args = "cd ${GITHUB_WORKSPACE}; make install test"
 }
 
 action "test-36" {
     uses = "./actions/test-36"
-    args = "cd ${GITHUB_WORKSPACE}; make test"
+    args = "cd ${GITHUB_WORKSPACE}; make install test"
 }
 
 action "test-37" {
     uses = "./actions/test-37"
-    args = "cd ${GITHUB_WORKSPACE}; make test"
+    args = "cd ${GITHUB_WORKSPACE}; make install test"
 }
 
 action "lint" {
