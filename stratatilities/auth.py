@@ -75,7 +75,15 @@ def request_vault_token(vault_addr):
         role_name,
         str(base64.b64encode(request.body.encode('ascii')), 'ascii'),
         str(base64.b64encode(request.url.encode('ascii')), 'ascii'),
-        str(base64.b64encode(bytes(json.dumps(headers_to_go_style(dict(request.headers))), 'ascii')), 'ascii')
+        str(
+            base64.b64encode(
+                bytes(
+                    json.dumps(headers_to_go_style(dict(request.headers))),
+                    'ascii',
+                ),
+            ),
+            'ascii',
+        )
     )
 
 
