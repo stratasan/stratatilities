@@ -8,8 +8,9 @@ workflow "CI" {
 }
 
 action "lint" {
-    uses = "./actions/lint"
-    args = "cd ${GITHUB_WORKSPACE}; make lint"
+    uses = "docker://python:3.7-alpine"
+    runs = "./actions_runner.sh"
+    args = "lint"
 }
 
 action "test-35" {
@@ -21,12 +22,14 @@ action "test-35" {
 
 action "test-36" {
     needs = ["lint"]
-    uses = "./actions/test-36"
-    args = "cd ${GITHUB_WORKSPACE}; apk add make; make install test"
+    uses = "docker://python:3.6-alpine"
+    runs = "./actions_runner.sh"
+    args = "install test"
 }
 
 action "test-37" {
     needs = ["lint"]
-    uses = "./actions/test-37"
-    args = "cd ${GITHUB_WORKSPACE}; make install test"
+    uses = "docker://python:3.7-alpine"
+    runs = "./actions_runner.sh"
+    args = "install test"
 }
