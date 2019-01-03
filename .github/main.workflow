@@ -15,7 +15,7 @@ action "lint" {
 action "test-35" {
     needs = ["lint"]
     uses = "docker://python:3.5-alpine"
-    runs = "${GITHUB_WORKSPACE}/actions_runner.sh"
+    runs = "./actions_runner.sh"
     args = "install test"
 }
 
