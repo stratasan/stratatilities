@@ -8,5 +8,5 @@ LABEL "com.github.actions.color"="purple"
 RUN apk add make
 RUN pip install black
 
-COPY lint.sh /usr/local/bin/lint
-ENTRYPOINT ["lint"]
+COPY entrypoint.sh /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
