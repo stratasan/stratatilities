@@ -15,8 +15,8 @@ action "lint" {
 action "test-35" {
     needs = ["lint"]
     uses = "docker://python:3.5-alpine"
-    runs = "sh -c \"$@\""
-    args = "apk add make && make install test"
+    runs = "${GITHUB_WORKSPACE}/actions_runner.sh"
+    args = "install test"
 }
 
 action "test-36" {
