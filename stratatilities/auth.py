@@ -51,8 +51,8 @@ def get_token(
         data=json.dumps(payload),
         headers=headers,
     )
-    json = response.json()
-    return json["auth"]["client_token"]
+    response_json = response.json()
+    return response_json["auth"]["client_token"]
 
 
 def request_vault_token(vault_addr):
