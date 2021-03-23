@@ -6,3 +6,6 @@ mock
 
 pytest
 pytest-runner
+awswrangler==2.3.0
+getpass
+urllib

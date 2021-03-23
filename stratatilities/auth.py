@@ -12,6 +12,7 @@ except ImportError:
 import boto3
 import hvac
 import requests
+import awswrangler.secretsmanager as sm
 
 try:
     from requests.packages.urllib3.exceptions import InsecureRequestWarning
@@ -100,7 +101,7 @@ def get_vault_client(vault_addr=os.environ.get("VAULT_ADDR")):
 def get_vault_client_via_ldap(
     username, mount_point="ldap", vault_addr=os.environ.get("VAULT_ADDR")
 ):
-    """ Return an authenticated vault client via LDAP.
+    """Return an authenticated vault client via LDAP.
 
     Password will be acquired via `getpass.getpass`. Services should
     use `get_vault_client` with IAM privileges.
@@ -127,7 +128,7 @@ def return_token(vault_addr=os.environ.get("VAULT_ADDR")):
 
 
 def read_vault_secret(vault_client, path_to_secret, vault_value_key="value"):
-    """ Read a vault secret given a {vault_client} and {path_to_secret}
+    """Read a vault secret given a {vault_client} and {path_to_secret}
 
     If the secret is "complex", in that it's more than just key/value,
     then passing `vault_value_key=None` will return the blob from vault
@@ -143,3 +144,21 @@ def read_vault_secret(vault_client, path_to_secret, vault_value_key="value"):
     except TypeError:
         pass
     return vault_value
+
+def read_aws_secret(secret_id, value_key="value"):
+    """Read an AWS secret given an AWS CLI security token present in the caller's env and {secret_id}
+
+    If the secret is "complex", in that it's more than just key/value,
+    then passing `vault_value_key=None` will return the blob from vault
+    and you can do w/ it as you wish, otherwise vault_value_key is used
+    to access the object returned in response['data']
+    """
+    secret_value = None
+    try:
+        if value_key == "value":
+            secret_value = sm.get_secret(secret_id)
+        else:
+            secret_value = sm.get_secret(secret_id)[value_key]
+    except TypeError:
+        pass
+    return secret_value
